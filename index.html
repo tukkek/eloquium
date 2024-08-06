@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<title>Eloquium demonstation</title>
+
+<style>
+  body{
+    display:grid;
+    grid-auto-flow:column;
+    grid-template-columns:max-content auto;
+    grid-gap:3em;
+    margin-top:1em;
+  }
+  #languages{
+    display:grid;
+    grid-gap:1em;
+  }
+  .header{
+    font-weight:bold;
+    font-size:large;
+  }
+  #results{
+    display:grid;
+    grid-gap:1em;
+    align-content:baseline;
+  }
+  #results textarea{
+    height:20vh;
+  }
+</style>
+
+<div id='languages'>
+  <template id='language'>
+    <div><label>
+      <input class='language' type='radio' name='language'><span></span>
+    </label></div>
+  </template>
+  <div class='header'>Real languages</div>
+  <div id='real'></div>
+  <div class='header'>Fantasy languages</div>
+  <div id='fantasy'></div>
+</div>
+
+<div id='results'>
+  <div class='header'>Female names</div>
+  <textarea id='female'></textarea>
+  <div class='header'>Male names</div>
+  <textarea id='male'></textarea>
+  <div class='header'>Nouns</div>
+  <textarea id='nouns'></textarea>
+  <button>Generate</button>
+</div>
+
+<script type='module'>
+  import * as eloquium from './eloquium.js'
+  
+  const LANGUAGE=document.querySelector(`template#language`).content.children[0]
+  
+  function generate(language){
+    let female=[]
+    while(female.length<100) female.push(`${language.female} ${language.family}`)
+    document.querySelector('#female').textContent=female.join(', ')
+    let male=[]
+    while(male.length<100) male.push(`${language.male} ${language.family}`)
+    document.querySelector('#male').textContent=male.join(', ')
+    let nouns=[]
+    while(nouns.length<200) nouns.push(language.noun)
+    document.querySelector('#nouns').textContent=nouns.join(', ')
+  }
+  
+  function populate(languages,id){
+    let container=document.querySelector(`#${id}`)
+    for(let l of languages.keys()){
+      let view=LANGUAGE.cloneNode(true)
+      view.querySelector('span').innerHTML=l
+      view.querySelector('input').value=l.toLowerCase()
+      view.onclick=()=>generate(languages.get(l))
+      container.appendChild(view)
+    }
+  }
+  
+  async function setup(){
+    await eloquium.setup()
+    populate(eloquium.countries,'real')
+    populate(eloquium.fantasy,'fantasy')
+    document.querySelector('input[value=us]').click()
+    document.querySelector('button').onclick=
+      ()=>document.querySelector('input:checked').click()
+  }
+  
+  setup()
+</script>
