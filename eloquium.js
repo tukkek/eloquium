@@ -15,7 +15,7 @@ const FANTASY=new Map([
 ])
 const KEYS=['male','female','family','noun']
 
-class Language{
+export class Language{
   constructor(namesp=false){
     let names=new Map(KEYS.map(key=>[key,[]]))
     this.names=names
@@ -67,8 +67,11 @@ class Language{
   
   merge(language){
     let names=language.names
-    for(let key of names.keys())
-      this.names.get(key).push(...names.get(key))
+    for(let key of names.keys()){
+      let section=this.names.get(key)
+      section.push(...names.get(key))
+      rpg.shuffle(section)
+    }
   }
 }
 
@@ -78,6 +81,18 @@ class RPG{
   pick(array){return array[this.roll(0,array.length-1)]}
 
   low(min,max){return Math.min(this.roll(min,max),this.roll(min,max))}
+  
+  shuffle(array){
+    let last=array.length-1
+    for(let i=0;i<last;i++){
+      let j=this.roll(i,last)
+      let a=array[i]
+      let b=array[j]
+      array[i]=b
+      array[j]=a
+    }
+    return array
+  }
 }
 
 export var countries=new Map()//country:language
