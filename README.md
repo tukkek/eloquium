@@ -6,7 +6,7 @@ It can also generate fictional names by merging different languages. For example
 
 18 real-world languages are supported, with 8 fantasy languages included.
 
-**Access the demo here** (may take a few seconds to load): https://tukkek.github.io/eloquium
+**Access the demo here**: https://tukkek.github.io/eloquium
 
 ## Usage
 
