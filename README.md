@@ -40,11 +40,12 @@ For each language, Eloquium takes 100 male, female and family names and divides 
 3. Replace the middle syllables from any names in the same gender.
 4. Replace the final syllable from any name in the same gender.
 
-For example: picking the name John-a-than and dividing it into John-a-than, we could get a result of Do-u-ley:
+For example: picking the mexican name Guadalupe and dividing it into Gua-da-lu-pe, we could get a result of Car-li-a-la:
 
-* Do- from Donald
-* -u- from Douglas
-* -ley from Wesley
+* Car- from Carmen
+* -li- from Alicia
+* -a- from Juana
+* -la from Gabriela
 
 The generator also incentivizes more common names over less common ones.
 
